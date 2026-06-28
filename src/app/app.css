@@ -1,15 +1,160 @@
 @import "tailwindcss";
 
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
+  @apply bg-black text-zinc-200;
+  min-height: 100vh;
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  }
+  font-family: "Roboto-Mono", ui-monospace monospace;
+}
+
+:root {
+  --imperial-red: #b91c1c;
+  --panel: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+.panel{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.8; }
+}
+
+.industrial-button {
+  all: unset; /* Reset default styles */
+  
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  
+  /* Size and Recess (Compact like image_4.png) */
+  padding: 8px 16px;
+  background-color: var(--color-grey-dark);
+  
+  /* The deep 'cut-out' panel effect */
+  border: 1px solid #000;
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.8), /* Panel recess depth */
+    0 1px 0 rgba(255,255,255,0.1); /* Subtle edge highlight */
+  
+  cursor: pointer;
+  overflow: hidden;
+  
+  transition: all 0.15s ease-out;
+}
+
+/* Worn Cross-Hatch Pattern (From image_5.png) */
+.texture-overlay {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  
+  /* Replicating the diagonal worn metallic texture */
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1; /* Keep content above texture */
+}
+
+/* LED Housing (Small and recessed) */
+.led-container {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  
+  background-color: var(--color-grey-led-housing);
+  border: 2px solid #000; /* Deep black recess */
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The glowing LED lens */
+.led-lens {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #333; /* Default dark state */
+  
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+/* Label Text (Mono, slightly spaced) */
+.text-label {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #a0a0a0;
+  
+  /* Text looks stamped/aged */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+}
+
+/* Hover/Active States for true interactivity */
+
+.industrial-button:hover .text-label {
+  color: #fff; /* Slight brighten on hover */
+}
+
+.industrial-button:active {
+  /* Mimic the button being physically pushed in */
+  transform: translateY(1px);
+  box-shadow: inset 0 4px 6px rgba(0,0,0,1);
+}
+
+/* Active LED state (Toggled with the 'active' class) */
+.industrial-button.active .led-lens {
+  background-color: var(--color-green);
+  
+  /* Intense, focused green glow like image_4.png */
+  box-shadow: 
+    0 0 12px var(--color-green),
+    0 0 20px rgba(46, 204, 113, 0.5);
+}
+
+.industrial-button.active .text-label {
+  color: #fff; /* Text lights up with the LED */
+}
+
+@layer utilities {
+  .bg-grimdark-metal {
+    /* Layer 1: Subtle noise pattern (pitting) */
+    background-image: 
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0px, transparent 2px),
+      /* Layer 2: Base metallic color with directional grain */
+      linear-gradient(90deg, #1a1a1a 0%, #262626 50%, #1a1a1a 100%),
+      /* Layer 3: Dark rust/corrosion gradients */
+      radial-gradient(circle at 30% 20%, #451a03 0%, transparent 60%),
+      radial-gradient(circle at 70% 80%, #18181b 0%, transparent 70%);
+    background-blend-mode: overlay, normal, multiply, normal;
   }
 }
