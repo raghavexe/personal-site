@@ -2,7 +2,7 @@ import Button from "./Parts/Buttons";
 
 export default function NavBar() {
   return (
-    <nav className="w-full h-16 px-6 flex items-center justify-between bg-gray-900 text-white z-1">
+    <nav className="w-full h-16 px-6 flex items-center justify-between bg-grimdark-metal text-white z-1">
       {/* Left: Brand */}
       <div className="font-semibold text-lg">Raghav</div>
 
@@ -35,7 +35,7 @@ export default function NavBar() {
         <a
           target="_blank"
           href="https://www.linkedin.com/in/raghav-tengse-05b774257/"
-          className="text-sm text-blue-400 hover:text-white transition"
+          className="text-sm text-blue-400 hover:text-white transition bg-grimdark-metal"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -21,21 +21,20 @@ export default function Button({
       className="
           group relative inline-flex items-center gap-1
           px-4 py-3
-  
-          bg-zinc-950
+
+          bg-grimdark-metal
           border-2 border-zinc-900
-          shadow-[
-            inset_0_1px_1px_rgba(255,255,255,0.15), 
-            inset_0_-2px_4px_rgba(0,0,0,0.8), 
-            0_2px_4px_rgba(0,0,0,0.5)
-          ] 
-          rounded-sm
-  
-          shadow-[inset_0_2px_4px_rgba(0,0,0,0.9),0_1px_0_rgba(255,255,255,0.04)]
-  
+
+          shadow-[0_6px_12px_rgba(0,0,0,0.6),0_2px_4px_rgba(0,0,0,0.4)]
+
+          backdrop-blur-[1px]
+
+          hover:-translate-y-px
+          hover:shadow-[0_10px_20px_rgba(0,0,0,0.7),0_3px_6px_rgba(0,0,0,0.4)]
+
           active:translate-y-px
-          active:shadow-[inset_0_4px_8px_rgba(0,0,0,1)]
-  
+          active:shadow-[0_3px_6px_rgba(0,0,0,0.5)]
+
           overflow-hidden
           transition-all duration-150
         "
@@ -50,14 +49,14 @@ export default function Button({
       <div className="relative w-4 h-4 rounded-full bg-black border border-zinc-800 flex items-center justify-center shadow-inner">
         <div
           className={`
-              w-2.5 h-2.5 rounded-full transition-all duration-300
-  
-              ${
-                active
-                  ? "bg-green-400 shadow-[0_0_6px_#22c55e,0_0_14px_#22c55e] animate-[flicker_3s_infinite]"
-                  : "bg-(--imperial-red) shadow-[0_0_10px_var(--imperial-red),0_0_20px_rgba(185,28,28,0.5)] animate-[flicker_3s_infinite]"
-              }
-            `}
+            w-2.5 h-2.5 rounded-full transition-all duration-300
+
+            ${
+              active
+                ? "bg-green-400 shadow-[0_0_6px_#22c55e,0_0_14px_#22c55e] animate-[flicker_3s_infinite]"
+                : "bg-(--imperial-red) shadow-[0_0_10px_var(--imperial-red),0_0_20px_rgba(185,28,28,0.5)] animate-[flicker_3s_infinite]"
+            }
+          `}
         />
       </div>
 
