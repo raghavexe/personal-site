@@ -1,11 +1,12 @@
 import { useState } from "react";
 import MechButton from "./Parts/MechButton";
-
 const NAV_LINKS = [
   { id: "home", label: "HOME" },
   { id: "about", label: "ABOUT" },
   { id: "projects", label: "PROJECTS" },
-  { id: "hobbies", label: "HOBBIES" },
+  { id: "hobbies-games", label: "GAMES" },
+  { id: "hobbies-books", label: "BOOKS" },
+  { id: "hobbies-tv", label: "TV SHOWS" },
 ];
 
 export default function NavBar() {
@@ -64,7 +65,7 @@ export default function NavBar() {
 
         {/* Pipe rails */}
         <div
-          className="absolute left-0 right-0 z-[2]"
+          className="absolute left-0 right-0 z-2"
           style={{
             top: -10,
             height: 7,
@@ -74,7 +75,7 @@ export default function NavBar() {
           }}
         />
         <div
-          className="absolute left-0 right-0 z-[2]"
+          className="absolute left-0 right-0 z-2"
           style={{
             bottom: -10,
             height: 7,
@@ -86,7 +87,7 @@ export default function NavBar() {
 
         {/* Rivet strip — left */}
         <div
-          className="absolute top-0 bottom-0 left-0 z-[1] flex flex-col items-center justify-evenly"
+          className="absolute top-0 bottom-0 left-0 z-1 flex flex-col items-center justify-evenly"
           style={{
             width: 36,
             background: "#0d0a07",
@@ -124,7 +125,7 @@ export default function NavBar() {
 
         {/* Rivet strip — right */}
         <div
-          className="absolute top-0 bottom-0 right-0 z-[1] flex flex-col items-center justify-evenly"
+          className="absolute top-0 bottom-0 right-0 z-1 flex flex-col items-center justify-evenly"
           style={{
             width: 36,
             background: "#0d0a07",
@@ -162,7 +163,7 @@ export default function NavBar() {
 
         {/* Brand */}
         <div
-          className="z-[2] flex-shrink-0 tracking-[0.22em] uppercase font-semibold"
+          className="z-2 shrink-0 tracking-[0.22em] uppercase font-semibold"
           style={{
             fontFamily: "'Cinzel', serif",
             fontSize: 15,
@@ -174,12 +175,12 @@ export default function NavBar() {
         </div>
 
         <div
-          className="z-[2] flex-shrink-0"
+          className="z-2 shrink-0"
           style={{ width: 1, height: 36, background: "#2a1e0c" }}
         />
 
         {/* Nav links */}
-        <div className="z-[2] flex items-stretch flex-1 justify-center h-full">
+        <div className="z-2 flex items-stretch flex-1 justify-center h-full">
           {NAV_LINKS.map(({ id, label }) => (
             <MechButton
               key={id}
@@ -192,13 +193,13 @@ export default function NavBar() {
         </div>
 
         <div
-          className="z-[2] flex-shrink-0"
+          className="z-2 shrink-0"
           style={{ width: 1, height: 36, background: "#2a1e0c" }}
         />
 
         {/* Right — socials + contact */}
         <div
-          className="z-[2] flex-shrink-0 flex items-center gap-[14px]"
+          className="z-2 shrink-0 flex items-center gap-3.5"
           style={{ padding: "0 50px 0 18px" }}
         >
           <a
@@ -206,13 +207,13 @@ export default function NavBar() {
             target="_blank"
             rel="noreferrer"
             title="GitHub"
-            className="flex flex-col items-center justify-center gap-[6px] px-3"
+            className="flex flex-col items-center justify-center gap-1.5 px-3"
             style={{ color: "#7a5a28" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#c8a050")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#7a5a28")}
           >
             <div
-              className="w-[18px] h-[7px] rounded-[1px] border border-[#1a1208] relative overflow-hidden"
+              className="w-4.5 h-1.75 rounded-[1px] border border-[#1a1208] relative overflow-hidden"
               style={{ background: "#0d0a07" }}
             >
               <div
@@ -239,13 +240,13 @@ export default function NavBar() {
             target="_blank"
             rel="noreferrer"
             title="LinkedIn"
-            className="flex flex-col items-center justify-center gap-[6px] px-3"
+            className="flex flex-col items-center justify-center gap-1.5 px-3"
             style={{ color: "#7a5a28" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#c8a050")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#7a5a28")}
           >
             <div
-              className="w-[18px] h-[7px] rounded-[1px] border border-[#1a1208] relative overflow-hidden"
+              className="w-4.5 h-1.75 rounded-[1px] border border-[#1a1208] relative overflow-hidden"
               style={{ background: "#0d0a07" }}
             >
               <div
@@ -291,19 +292,19 @@ export default function NavBar() {
         }}
       >
         <span
-          className="rounded-full flex-shrink-0"
+          className="rounded-full shrink-0"
           style={{ width: 5, height: 5, background: "#6b0a0a" }}
         />
         <span>SYS.NOMINAL</span>
         <span style={{ color: "#1e1509" }}>|</span>
         <span
-          className="rounded-full flex-shrink-0"
+          className="rounded-full shrink-0"
           style={{ width: 5, height: 5, background: "#3a1a08" }}
         />
         <span>UPLINK: ESTABLISHED</span>
         <span style={{ color: "#1e1509" }}>|</span>
         <span
-          className="rounded-full flex-shrink-0"
+          className="rounded-full shrink-0"
           style={{ width: 5, height: 5, background: "#6b0a0a" }}
         />
         <span>MACHINE.SPIRIT: DORMANT</span>

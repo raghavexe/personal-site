@@ -39,7 +39,7 @@ export default function MechButton({
         <div
           className="absolute inset-0 rounded-[1px]"
           style={{
-            background: active ? "#16962a" : "#cf1c1c",
+            background: active ? "#16962a" : "#f70000",
             animation: active
               ? "flicker 2.8s infinite"
               : "flicker 3.5s infinite",
