@@ -40,8 +40,8 @@ function RelicPlaque({ game }: { game: SteamGame }) {
     <div
       className={`relative rounded-sm p-4 shadow-[0_4px_10px_rgba(0,0,0,0.6)] ${
         isComplete
-          ? "bg-gradient-to-b from-amber-950 to-zinc-900 border border-amber-400/70 shadow-[0_0_18px_rgba(217,170,60,0.35)]"
-          : "bg-gradient-to-b from-zinc-800 to-zinc-900 border border-amber-900/50"
+          ? "bg-linear-to-b from-amber-950 to-zinc-900 border border-amber-400/70 shadow-[0_0_18px_rgba(217,170,60,0.35)]"
+          : "bg-linear-to-b from-zinc-800 to-zinc-900 border border-amber-900/50"
       }`}
     >
       {isComplete && (
