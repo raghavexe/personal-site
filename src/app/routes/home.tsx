@@ -1,6 +1,6 @@
 import BinaryBackground from "~/components/BinaryBackground";
 import type { Route } from "./+types/home";
-import NavBar from "~/components/Navbar";
+import NavBar from "~/components/navbar";
 import Panel from "~/components/Parts/Panel";
 import HomePanel from "~/components/HomePanel";
 import AboutMe from "~/components/AboutMe";
