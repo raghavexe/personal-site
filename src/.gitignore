@@ -6,5 +6,4 @@
 /.react-router/
 /build/
 
-./app/assets/my-photo.jpeg
-./app/assets/my-photo1.jpeg
+/app/assets/
