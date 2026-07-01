@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import Panel from "./Parts/Panel";
+import ScreenFrame from "./Parts/ScreenFrame";
+import { ScreenHeader, ScreenFooter } from "./Parts/ScreenHeaderFooter";
+import Divider from "./Parts/Divider";
+import TravelGlobe from "./Parts/TravelMap";
 
 /* Includes things i love to do, and what i do as a software Engineer */
 
@@ -100,57 +104,6 @@ function LoadingLine({ name, index }: { name: string; index: number }) {
         {bar}
       </span>
       <span className="text-right tabular-nums">{pct}%</span>
-    </div>
-  );
-}
-
-function ScreenFrame({
-  children,
-  minHeight = "min-h-[440px]",
-}: {
-  children: React.ReactNode;
-  minHeight?: string;
-}) {
-  return (
-    <div className="h-full rounded-[34px] border-[3px] border-zinc-500 bg-zinc-700 p-1.5 shadow-[0_0_0_1px_rgba(0,0,0,0.6)]">
-      <div className="h-full rounded-[28px] border-2 border-zinc-600 bg-zinc-800 p-3">
-        <div
-          className={`relative h-full ${minHeight} rounded-[22px] bg-black overflow-hidden shadow-[inset_0_0_35px_rgba(0,0,0,0.9)]`}
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg, rgba(34,197,94,0.07) 0px, rgba(34,197,94,0.07) 1px, transparent 1px, transparent 3px)",
-          }}
-        >
-          <div className="pointer-events-none absolute inset-0 bg-green-400/5 animate-pulse" />
-          <div className="relative font-mono uppercase px-6 py-6 text-sm space-y-4">
-            {children}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ScreenHeader({ title }: { title: string }) {
-  return (
-    <div className="bg-green-400 text-black text-center text-[12px] font-bold tracking-widest py-2 leading-snug">
-      +++ {title} +++
-    </div>
-  );
-}
-
-function ScreenFooter({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="bg-green-400 text-black text-center text-[11px] font-bold tracking-widest py-2 px-1 mt-4 leading-snug">
-      ++ {children} ++
-    </div>
-  );
-}
-
-function Divider() {
-  return (
-    <div className="text-green-600 text-[5px] overflow-hidden">
-      {"=".repeat(80)}
     </div>
   );
 }
@@ -296,19 +249,19 @@ export default function AboutMe() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
           <Terminal
             slug="lingua"
-            title="Lingua Vault"
+            title="Language Vault"
             footer="The code compiles"
             items={languages}
           />
           <Terminal
             slug="cogitatio"
-            title="Cogitatio Logs"
+            title="Learning Logs"
             footer="The mind expands"
             items={languagesLearning}
           />
           <Terminal
             slug="machina"
-            title="Machina Spirits"
+            title="Technologies Used"
             footer="The stack endures"
             items={technologies}
           />
@@ -316,6 +269,7 @@ export default function AboutMe() {
 
         <EducationTerminal />
         <WorkExperienceTerminal />
+        <TravelGlobe />
       </div>
     </Panel>
   );

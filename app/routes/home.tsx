@@ -6,12 +6,15 @@ import HomePanel from "~/components/HomePanel";
 import AboutMe from "~/components/AboutMe";
 import HobbiesGames from "~/components/Hobbies";
 import { getOwnedGames } from "~/lib/steam.server";
+import ProjectExperienceTerminal from "~/components/Projects";
+import HobbiesBooks from "~/components/HobbiesBooks";
+import UnderInquisitorialSeal from "~/components/Parts/Unavailable";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Home" }, { name: "description", content: "" }];
 }
 export async function loader({}: Route.LoaderArgs) {
-  console.log("STEAM KEY:", process.env.STEAM_API_KEY);
+  //console.log("STEAM KEY:", process.env.STEAM_API_KEY);
   return getOwnedGames();
 }
 
@@ -29,12 +32,19 @@ export default function Home() {
             <AboutMe />
           </section>
           <section id="projects">
-            <Panel>
-              <p>Projects</p>
-            </Panel>
+            <ProjectExperienceTerminal />
           </section>
           <section id="hobbies-games">
             <HobbiesGames />
+          </section>
+          <section id="hobbies-books">
+            <HobbiesBooks />
+          </section>
+          <section id="hobbies-tv">
+            <UnderInquisitorialSeal />
+          </section>
+          <section id="contact">
+            <UnderInquisitorialSeal />
           </section>
         </div>
       </div>

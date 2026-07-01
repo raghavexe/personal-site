@@ -256,7 +256,7 @@ export default function HomePanel() {
             },
             {
               label: "PURITY RATING",
-              value: "94%",
+              value: "60%",
               sub: "INQUISITION SEAL",
               gold: true,
             },
