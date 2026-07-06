@@ -1,18 +1,6 @@
 import { useLoaderData } from "react-router";
 import Panel from "./Parts/Panel";
-
-interface Achievements {
-  total: number;
-  unlocked: number;
-}
-
-interface SteamGame {
-  appid: number;
-  name: string;
-  playtime_forever: number;
-  img_icon_url: string;
-  achievements?: Achievements | null;
-}
+import { type SteamGame } from "~/assets/data/SteamInterface";
 
 function getRank(hours: number) {
   if (hours >= 200) return { title: "Chapter master", seal: "★★★" };

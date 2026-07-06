@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --font-gothic: "Cinzel", serif;
+  --font-blackletter: "UnifrakturMaguntia", serif;
+  --font-terminal: "Share Tech Mono", monospace;
+  --font-sans: "Sen", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+}
 
 @theme {
   --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
