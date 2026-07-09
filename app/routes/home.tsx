@@ -9,6 +9,8 @@ import { getOwnedGames } from "~/lib/steam.server";
 import ProjectExperienceTerminal from "~/components/Projects";
 import HobbiesBooks from "~/components/HobbiesBooks";
 import UnderInquisitorialSeal from "~/components/Parts/Unavailable";
+import ContactForm from "~/components/ContactForm";
+import HobbiesTvShows from "~/components/HobbiesTvShows";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Home" }, { name: "description", content: "" }];
@@ -41,10 +43,10 @@ export default function Home() {
             <HobbiesBooks />
           </section>
           <section id="hobbies-tv">
-            <UnderInquisitorialSeal />
+            <HobbiesTvShows />
           </section>
           <section id="contact">
-            <UnderInquisitorialSeal />
+            <ContactForm />
           </section>
         </div>
       </div>

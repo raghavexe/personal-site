@@ -3,70 +3,26 @@ import * as THREE from "three";
 import ScreenFrame from "./ScreenFrame";
 import { ScreenHeader, ScreenFooter } from "./ScreenHeaderFooter";
 import Divider from "./Divider";
+import LOCATIONS from "~/assets/data/MapLocations";
+import LOCATION_WISHLIST from "~/assets/data/MapLocationsWishlist";
 
-const LOCATIONS = [
-  { name: "Hamburg", lat: 53.55, lng: 10.0, note: "IB Diploma — ISH" },
-  {
-    name: "Gothenburg",
-    lat: 57.7,
-    lng: 11.97,
-    note: "BSc Software Engineering",
-  },
-  {
-    name: "Linköping",
-    lat: 58.41,
-    lng: 15.62,
-    note: "Swedish Language Studies",
-  },
-  { name: "Växjö", lat: 56.88, lng: 14.81, note: "Linnaeus Universitet" },
-  { name: "Stockholm", lat: 59.33, lng: 18.07, note: "Visited" },
-  { name: "Mumbai", lat: 19.13, lng: 72.86, note: "Visited" },
-  { name: "Stockholm", lat: 59.33, lng: 18.07, note: "Visited" },
-  { name: "Mumbai", lat: 19.08, lng: 72.88, note: "Visited" },
-  { name: "München", lat: 48.14, lng: 11.58, note: "Visited" },
-  { name: "San Francisco", lat: 37.77, lng: -122.42, note: "Visited" },
-  { name: "Seattle", lat: 47.61, lng: -122.33, note: "Visited" },
-  { name: "Lillehammer", lat: 61.11, lng: 10.47, note: "Visited" },
-  { name: "Stavanger", lat: 58.97, lng: 5.73, note: "Visited" },
-  { name: "Delhi", lat: 28.61, lng: 77.21, note: "Visited" },
-  { name: "Pune", lat: 18.52, lng: 73.86, note: "Visited" },
-  { name: "Panaji", lat: 15.49, lng: 73.83, note: "Visited" },
-  { name: "Loliem", lat: 15.02, lng: 74.02, note: "Visited" },
-  { name: "Kolkata", lat: 22.57, lng: 88.36, note: "Visited" },
-  { name: "Frankfurt", lat: 50.11, lng: 8.68, note: "Visited" },
-  { name: "Dresden", lat: 51.05, lng: 13.74, note: "Visited" },
-  { name: "Doha", lat: 25.29, lng: 51.53, note: "Visited" },
-  { name: "Athens", lat: 37.98, lng: 23.73, note: "Visited" },
-  { name: "Sydney", lat: -33.87, lng: 151.21, note: "Visited" },
-  { name: "Cairns", lat: -16.92, lng: 145.77, note: "Visited" },
-  { name: "Helsinki", lat: 60.17, lng: 24.94, note: "Visited" },
-  { name: "Rovaniemi", lat: 66.5, lng: 25.73, note: "Visited" },
-  { name: "Berlin", lat: 52.52, lng: 13.4, note: "Visited" },
-  { name: "Yosemite", lat: 37.87, lng: -119.54, note: "Visited" },
-  { name: "New York", lat: 40.71, lng: -74.01, note: "Visited" },
-  { name: "Kuala Lumpur", lat: 3.14, lng: 101.69, note: "Visited" },
-  { name: "Singapore", lat: 1.35, lng: 103.82, note: "Visited" },
-  { name: "Jakarta", lat: -6.21, lng: 106.85, note: "Visited" },
-  { name: "Geneva", lat: 46.2, lng: 6.15, note: "Visited" },
-  { name: "Stuttgart", lat: 48.78, lng: 9.18, note: "Visited" },
-  { name: "Copenhagen", lat: 55.68, lng: 12.57, note: "Visited" },
-  { name: "Tallinn", lat: 59.44, lng: 24.75, note: "Visited" },
-  { name: "St. Petersburg", lat: 59.93, lng: 30.36, note: "Visited" },
-  { name: "Jaipur", lat: 26.91, lng: 75.79, note: "Visited" },
-  { name: "Amritsar", lat: 31.63, lng: 74.87, note: "Visited" },
-  { name: "Vrindavan", lat: 27.58, lng: 77.7, note: "Visited" },
-  { name: "Gokarna", lat: 14.55, lng: 74.32, note: "Visited" },
-  { name: "Tirupati", lat: 13.63, lng: 79.42, note: "Visited" },
-  { name: "Jönköping", lat: 57.78, lng: 14.16, note: "Visited" },
-];
+import {
+  CONTINENT_ORDER,
+  type Continent,
+  type LocationEntry,
+} from "~/assets/data/Maptypes";
 
-const LOCATION_WISHLIST = [
-  { name: "Derby", lat: 52.9225, lng: -1.4746, note: "Pending" },
-  { name: "Tokyo", lat: 35.6762, lng: 139.6503, note: "Pending" },
-  { name: "Beijing", lat: 39.9042, lng: 116.4074, note: "Pending" },
-  { name: "Svalbard", lat: 78.2232, lng: 15.6267, note: "Pending" },
-  { name: "Cape Town", lat: -33.92, lng: 18.42, note: "Pending" },
-];
+function groupByContinent(locations: LocationEntry[]) {
+  const groups = new Map<Continent, LocationEntry[]>();
+  for (const loc of locations) {
+    if (!groups.has(loc.continent)) groups.set(loc.continent, []);
+    groups.get(loc.continent)!.push(loc);
+  }
+  return CONTINENT_ORDER.filter((c) => groups.has(c)).map((c) => ({
+    continent: c,
+    items: groups.get(c)!,
+  }));
+}
 
 const GEOJSON_URL =
   "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_land.geojson";
@@ -110,11 +66,111 @@ function buildLandLines(
   return group;
 }
 
+/** Collapsible continent section, closed by default */
+function ContinentSection({
+  continent,
+  items,
+  accent,
+}: {
+  continent: string;
+  items: LocationEntry[];
+  accent: "green" | "amber";
+}) {
+  const [open, setOpen] = useState(false);
+
+  const colors =
+    accent === "green"
+      ? {
+          border: "border-green-900/50",
+          headerBorder: "border-green-900/40",
+          headerHover: "hover:border-green-700/60",
+          title: "text-green-400",
+          count: "text-green-700",
+          arrow: "text-green-500",
+          itemBorder: "border-green-900/50",
+          itemName: "text-green-300",
+          itemNote: "text-green-700",
+          itemCoord: "text-green-900",
+          bullet: "text-green-400",
+        }
+      : {
+          border: "border-amber-900/30",
+          headerBorder: "border-amber-900/30",
+          headerHover: "hover:border-amber-700/50",
+          title: "text-amber-400",
+          count: "text-amber-700",
+          arrow: "text-amber-500",
+          itemBorder: "border-amber-900/30",
+          itemName: "text-amber-400",
+          itemNote: "text-amber-700",
+          itemCoord: "text-amber-900",
+          bullet: "text-amber-600",
+        };
+
+  return (
+    <div className={`border ${colors.border} mb-2`}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={`w-full flex items-center justify-between px-3 py-2 border-b ${colors.headerBorder} ${colors.headerHover} transition-colors font-mono uppercase tracking-widest text-[11px]`}
+      >
+        <span className={colors.title}>// {continent}</span>
+        <span className="flex items-center gap-2">
+          <span className={`${colors.count} text-[9px] normal-case`}>
+            {items.length} {items.length === 1 ? "sector" : "sectors"}
+          </span>
+          <span
+            className={`${colors.arrow} transition-transform duration-150 inline-block`}
+            style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+          >
+            ▶
+          </span>
+        </span>
+      </button>
+
+      {open && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-3">
+          {items.map((loc, i) => (
+            <div
+              key={`${loc.name}-${i}`}
+              className={`border ${colors.itemBorder} px-3 py-2 flex items-start gap-2`}
+            >
+              <span
+                className={`${colors.bullet} mt-0.5 shrink-0 animate-pulse`}
+              >
+                {accent === "green" ? "✠" : "◎"}
+              </span>
+              <div>
+                <p
+                  className={`${colors.itemName} text-[11px] uppercase tracking-wide font-mono`}
+                >
+                  {loc.name}
+                </p>
+                <p
+                  className={`${colors.itemNote} text-[10px] normal-case font-mono`}
+                >
+                  {loc.note}
+                </p>
+                <p className={`${colors.itemCoord} text-[9px] font-mono`}>
+                  {loc.lat.toFixed(2)}°N {loc.lng.toFixed(2)}°E
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function TravelGlobe() {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState<(typeof LOCATIONS)[0] | null>(null);
+  const [hovered, setHovered] = useState<LocationEntry | null>(null);
   const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
   const [loading, setLoading] = useState(true);
+
+  const visitedByContinent = groupByContinent(LOCATIONS);
+  const wishlistByContinent = groupByContinent(LOCATION_WISHLIST);
 
   useEffect(() => {
     const el = mountRef.current;
@@ -212,13 +268,11 @@ export default function TravelGlobe() {
     const markerMeshes: {
       mesh: THREE.Mesh;
       ring: THREE.Mesh;
-      location: (typeof LOCATIONS)[0];
+      location: LocationEntry;
     }[] = [];
 
-    // replace the LOCATIONS.forEach block with this:
-
     const buildMarkers = (
-      locations: typeof LOCATIONS,
+      locations: LocationEntry[],
       color: number,
       isWishlist: boolean
     ) => {
@@ -307,19 +361,8 @@ export default function TravelGlobe() {
 
     // Globe group — tilt like a real globe
     const globeGroup = new THREE.Group();
-    globeGroup.add(
-      new THREE.Mesh(
-        new THREE.SphereGeometry(RADIUS * 0.995, 48, 48),
-        solidMat
-      ),
-      gridGroup,
-      landGroup,
-      markerGroup
-    );
     globeGroup.rotation.z = THREE.MathUtils.degToRad(15);
 
-    // Re-add everything under globeGroup for unified rotation
-    scene.clear();
     globeGroup.add(
       new THREE.Mesh(
         new THREE.SphereGeometry(RADIUS * 0.995, 48, 48),
@@ -330,7 +373,6 @@ export default function TravelGlobe() {
       landGroup,
       markerGroup
     );
-    // Equator/PM need to be in the group too
     const eqLine = new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(eqPts),
       accentMat
@@ -570,37 +612,23 @@ export default function TravelGlobe() {
       </div>
 
       <Divider />
-
       <Divider />
 
       {/* Visited legend */}
       <div className="flex items-center gap-2 mb-2">
         <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
         <p className="text-green-600 text-[10px] font-mono uppercase tracking-widest">
-          // sectors visited
+          // sectors visited — grouped by theatre
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
-        {LOCATIONS.map((loc) => (
-          <div
-            key={loc.name}
-            className="border border-green-900/50 px-3 py-2 flex items-start gap-2"
-          >
-            <span className="text-green-400 mt-0.5 shrink-0 animate-pulse">
-              ✠
-            </span>
-            <div>
-              <p className="text-green-300 text-[11px] uppercase tracking-wide font-mono">
-                {loc.name}
-              </p>
-              <p className="text-green-700 text-[10px] normal-case font-mono">
-                {loc.note}
-              </p>
-              <p className="text-green-900 text-[9px] font-mono">
-                {loc.lat.toFixed(2)}°N {loc.lng.toFixed(2)}°E
-              </p>
-            </div>
-          </div>
+      <div className="mb-5">
+        {visitedByContinent.map(({ continent, items }) => (
+          <ContinentSection
+            key={continent}
+            continent={continent}
+            items={items}
+            accent="green"
+          />
         ))}
       </div>
 
@@ -611,27 +639,14 @@ export default function TravelGlobe() {
           // target sectors — pending deployment
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {LOCATION_WISHLIST.map((loc) => (
-          <div
-            key={loc.name}
-            className="border border-amber-900/30 px-3 py-2 flex items-start gap-2"
-          >
-            <span className="text-amber-600 mt-0.5 shrink-0 animate-pulse">
-              ◎
-            </span>
-            <div>
-              <p className="text-amber-400 text-[11px] uppercase tracking-wide font-mono">
-                {loc.name}
-              </p>
-              <p className="text-amber-700 text-[10px] normal-case font-mono">
-                {loc.note}
-              </p>
-              <p className="text-amber-900 text-[9px] font-mono">
-                {loc.lat.toFixed(2)}°N {loc.lng.toFixed(2)}°E
-              </p>
-            </div>
-          </div>
+      <div>
+        {wishlistByContinent.map(({ continent, items }) => (
+          <ContinentSection
+            key={continent}
+            continent={continent}
+            items={items}
+            accent="amber"
+          />
         ))}
       </div>
 

@@ -64,7 +64,7 @@ const workExperience = [
     period: "October 2025 - January 2026",
   },
   {
-    role: "Systems architect and engineering intern",
+    role: "Systems architect, Scrum Master, DevOps Engineering intern",
     org: "Lensara Technologies",
     period: "May 2025 - current",
   },
