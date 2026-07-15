@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router";
 import MechButton from "./Parts/MechButton";
+
 const NAV_LINKS = [
   { id: "home", label: "HOME" },
   { id: "about", label: "ABOUT" },
@@ -11,6 +13,8 @@ const NAV_LINKS = [
 
 export default function NavBar() {
   const [active, setActive] = useState("home");
+  const location = useLocation();
+  const onBlogsPage = location.pathname.startsWith("/blogs");
 
   return (
     <>
@@ -162,17 +166,19 @@ export default function NavBar() {
         </div>
 
         {/* Brand */}
-        <div
+        <Link
+          to="/"
           className="z-2 shrink-0 tracking-[0.22em] uppercase font-semibold"
           style={{
             fontFamily: "'Cinzel', serif",
             fontSize: 15,
             color: "#7a5a28",
             padding: "0 18px 0 50px",
+            textDecoration: "none",
           }}
         >
           Raghav
-        </div>
+        </Link>
 
         <div
           className="z-2 shrink-0"
@@ -186,10 +192,44 @@ export default function NavBar() {
               key={id}
               sectionId={id}
               text={label}
-              active={active === id}
+              active={!onBlogsPage && active === id}
               onClick={setActive}
             />
           ))}
+
+          {/* Blog route button — plate-mounted, navigates to a new page rather than scrolling */}
+          <Link
+            to="/blogs"
+            className="relative flex items-center justify-center px-5 group"
+            style={{
+              fontFamily: "'Share Tech Mono', monospace",
+              fontSize: 11,
+              letterSpacing: "0.14em",
+              color: onBlogsPage ? "#c8a050" : "#7a5a28",
+              textDecoration: "none",
+              borderLeft: "1px solid #2a1e0c",
+              borderRight: "1px solid #2a1e0c",
+              background: onBlogsPage ? "rgba(139,16,16,0.12)" : "transparent",
+              transition: "color 120ms ease, background 120ms ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#c8a050";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = onBlogsPage ? "#c8a050" : "#7a5a28";
+            }}
+          >
+            <span
+              className="rounded-full shrink-0 mr-2"
+              style={{
+                width: 5,
+                height: 5,
+                background: "#8b1010",
+                animation: onBlogsPage ? "flicker 2.4s infinite" : "none",
+              }}
+            />
+            ARCHIVE
+          </Link>
         </div>
 
         <div
@@ -271,7 +311,7 @@ export default function NavBar() {
           <MechButton
             sectionId="contact"
             text="CONTACT"
-            active={active === "contact"}
+            active={!onBlogsPage && active === "contact"}
             onClick={setActive}
           />
         </div>
@@ -307,7 +347,7 @@ export default function NavBar() {
           className="rounded-full shrink-0"
           style={{ width: 5, height: 5, background: "#6b0a0a" }}
         />
-        <span>MACHINE.SPIRIT: DORMANT</span>
+        <span>{onBlogsPage ? "ARCHIVE: OPEN" : "MACHINE.SPIRIT: DORMANT"}</span>
       </div>
     </>
   );
