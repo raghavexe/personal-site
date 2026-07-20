@@ -147,12 +147,12 @@ export default function NavBar() {
         {/* Brand */}
         <Link
           to="/"
-          className="z-2 shrink-0 tracking-[0.22em] uppercase font-semibold"
+          className="z-2 shrink-0 tracking-[0.22em] uppercase font-semibold ml-3 md:ml-11"
           style={{
             fontFamily: "'Cinzel', serif",
             fontSize: 15,
             color: "#7a5a28",
-            padding: "0 12px 0 16px",
+            padding: "0 12px",
             textDecoration: "none",
           }}
         >
@@ -202,7 +202,7 @@ export default function NavBar() {
               style={{
                 width: 5,
                 height: 5,
-                background: "#8b1010",
+                background: onBlogsPage ? "#16962a" : "#8b1010",
                 animation: onBlogsPage ? "flicker 2.4s infinite" : "none",
               }}
             />
@@ -233,7 +233,17 @@ export default function NavBar() {
             onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
               (e.currentTarget as HTMLAnchorElement).style.color = "#7a5a28";
             }}
-          />
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="17"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+            </svg>
+          </a>
           <a
             href="https://www.linkedin.com/in/raghav-tengse-05b774257/"
             target="_blank"
