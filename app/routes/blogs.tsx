@@ -5,6 +5,101 @@ import POSTS from "~/assets/data/BlogData";
 const ALL_TAG = "ALL";
 const TAGS = [ALL_TAG, ...Array.from(new Set(POSTS.flatMap((p) => p.tags)))];
 
+function PuritySeal({
+  size = 32,
+  letter = "R",
+  showRibbon = true,
+}: {
+  size?: number;
+  letter?: string;
+  showRibbon?: boolean;
+}) {
+  const viewH = showRibbon ? 130 : 100;
+  return (
+    <svg
+      width={size}
+      height={showRibbon ? size * 1.3 : size}
+      viewBox={`0 0 90 ${viewH}`}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="ps-wax" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#c94a3a" />
+          <stop offset="45%" stopColor="#8f1f1a" />
+          <stop offset="100%" stopColor="#5c100e" />
+        </linearGradient>
+        {showRibbon && (
+          <linearGradient id="ps-ribbon" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#eee6d3" />
+            <stop offset="100%" stopColor="#cfc3a5" />
+          </linearGradient>
+        )}
+      </defs>
+
+      <g transform={`translate(45,${showRibbon ? 62 : 50})`}>
+        {showRibbon && (
+          <path
+            d="M -22 40 L -26 65 L 0 55 L 26 65 L 22 40 Z"
+            fill="url(#ps-ribbon)"
+            stroke="#8a7d5e"
+            strokeWidth="1"
+          />
+        )}
+
+        <path
+          d="
+          M 0,-62 C 10,-58 12,-48 8,-40 C 18,-44 27,-38 27,-27
+          C 34,-32 42,-27 41,-17 C 48,-18 53,-10 48,-2
+          C 55,0 56,10 49,15 C 55,21 53,31 45,32
+          C 49,39 44,48 36,46 C 38,54 30,60 23,55
+          C 22,63 12,66 6,60 C 2,67 -8,67 -12,60
+          C -18,66 -28,63 -29,55 C -36,60 -44,54 -42,46
+          C -50,48 -55,39 -51,32 C -59,31 -61,21 -55,15
+          C -62,10 -61,0 -54,-2 C -59,-10 -54,-18 -47,-17
+          C -48,-27 -40,-32 -33,-27 C -33,-38 -24,-44 -14,-40
+          C -18,-48 -16,-58 -6,-62 C -3,-64 3,-64 0,-62 Z"
+          fill="url(#ps-wax)"
+          stroke="#3f0b0a"
+          strokeWidth="1.5"
+        />
+
+        <circle
+          cx="0"
+          cy="-8"
+          r="38"
+          fill="none"
+          stroke="#3f0b0a"
+          strokeWidth="1"
+          opacity="0.5"
+        />
+        <circle
+          cx="0"
+          cy="-8"
+          r="30"
+          fill="none"
+          stroke="#3f0b0a"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
+
+        <text
+          x="0"
+          y="0"
+          textAnchor="middle"
+          style={{
+            fontFamily: "'Cinzel', serif",
+            fontSize: 30,
+            fontWeight: 700,
+            fill: "#2a0505",
+          }}
+        >
+          {letter}
+        </text>
+      </g>
+    </svg>
+  );
+}
+
 export default function Blogs() {
   const [filter, setFilter] = useState(ALL_TAG);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -17,10 +112,11 @@ export default function Blogs() {
 
   return (
     <div
-      className="min-h-screen w-full"
+      className="w-full"
       style={{
         background: "#0f0c09",
         fontFamily: "'Share Tech Mono', monospace",
+        minHeight: 500,
       }}
     >
       <style>{`
@@ -67,7 +163,11 @@ export default function Blogs() {
 
       <main
         className="relative z-10 mx-auto"
-        style={{ maxWidth: 1180, padding: "0 40px 120px", paddingTop: 108 }}
+        style={{
+          maxWidth: 1180,
+          padding: "0 40px 120px",
+          paddingTop: 108,
+        }}
       >
         {/* Hero */}
         <section className="mb-14">
@@ -200,24 +300,10 @@ export default function Blogs() {
                 {/* wax seal */}
                 <div
                   className="absolute"
-                  style={{ top: 14, right: 14, width: 30, height: 30 }}
+                  style={{ top: 8, right: 8, width: 34, height: 34 }}
                 >
-                  <div
-                    className="seal-top absolute inset-0 rounded-full flex items-center justify-center"
-                    style={{
-                      background: "#6b0a0a",
-                      border: "1px solid #8b1010",
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: "#2a0505",
-                        fontSize: 9,
-                        fontFamily: "'Cinzel', serif",
-                      }}
-                    >
-                      R
-                    </span>
+                  <div className="seal-top absolute inset-0 flex items-center justify-center">
+                    <PuritySeal size={34} showRibbon={false} />
                   </div>
                   <div
                     className="seal-crack absolute inset-0 rounded-full"
@@ -347,6 +433,24 @@ export default function Blogs() {
           >
             NO RECORDS MATCH THAT REQUISITION TAG.
           </p>
+        )}
+
+        {/* End-of-archive marker so short lists don't trail into dead space */}
+        {posts.length > 0 && (
+          <div
+            className="mt-16 pt-6 text-center"
+            style={{ borderTop: "1px solid #221806" }}
+          >
+            <span
+              style={{
+                color: "#3e2e14",
+                fontSize: 10,
+                letterSpacing: "0.16em",
+              }}
+            >
+              END OF TRANSMISSION LOG
+            </span>
+          </div>
         )}
       </main>
     </div>

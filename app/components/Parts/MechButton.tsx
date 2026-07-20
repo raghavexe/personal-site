@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from "react-router";
+
 interface MechButtonProps {
   sectionId: string;
   text: string;
@@ -11,9 +13,19 @@ export default function MechButton({
   active,
   onClick,
 }: MechButtonProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleClick = () => {
     onClick?.(sectionId);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+
+    if (location.pathname === "/") {
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate(`/#${sectionId}`);
+    }
   };
 
   return (

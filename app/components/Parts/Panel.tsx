@@ -9,8 +9,8 @@ export default function Panel({ title, children }: PanelProps) {
       <div
         className="
           relative
-          w-[80%] 
-          p-5
+          w-[92%] sm:w-[85%] md:w-[80%]
+          p-3 sm:p-4 md:p-5
           h-auto
           bg-grimdark-metal
           border-2 border-zinc-900

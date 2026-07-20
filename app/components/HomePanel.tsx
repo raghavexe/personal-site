@@ -140,10 +140,7 @@ export default function HomePanel() {
       </div>
 
       {/* Main two-column layout */}
-      <div
-        className="grid gap-8 items-center"
-        style={{ gridTemplateColumns: "1fr auto" }}
-      >
+      <div className="grid gap-8 items-center grid-cols-1 md:grid-cols-[1fr_auto]">
         {/* Text column */}
         <div className="flex flex-col gap-2">
           {/* Inquisition header tag */}
@@ -153,7 +150,7 @@ export default function HomePanel() {
 
           {/* Heading */}
           <h1 className="leading-tight min-h-[1.2em]">
-            <span className="text-4xl font-bold text-zinc-200 font-mono tracking-wide">
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-200 font-mono tracking-wide">
               {HEADING.slice(
                 0,
                 Math.min(headingChars, HEADING.indexOf("Raghav"))
@@ -163,7 +160,7 @@ export default function HomePanel() {
               <>
                 {" "}
                 <span
-                  className="text-5xl font-bold text-(--imperial-red)"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold text-(--imperial-red)"
                   style={{ fontFamily: "'UnifrakturMaguntia', serif" }}
                 >
                   {"Raghav".slice(
@@ -207,20 +204,22 @@ export default function HomePanel() {
         </div>
 
         {/* Photo with frame */}
-        <GrimdarkFrame>
-          <img
-            src={MyPhoto}
-            alt="Raghav"
-            className="absolute object-cover"
-            style={{
-              top: "12%",
-              left: "11%",
-              width: "78%",
-              height: "74%",
-              zIndex: 0,
-            }}
-          />
-        </GrimdarkFrame>
+        <div className="w-full max-w-70 mx-auto md:mx-0 md:w-auto">
+          <GrimdarkFrame>
+            <img
+              src={MyPhoto}
+              alt="Raghav"
+              className="absolute object-cover"
+              style={{
+                top: "12%",
+                left: "11%",
+                width: "78%",
+                height: "74%",
+                zIndex: 0,
+              }}
+            />
+          </GrimdarkFrame>
+        </div>
       </div>
 
       {/* AUSPEX HUD */}
@@ -240,7 +239,7 @@ export default function HomePanel() {
           </span>
         </div>
 
-        <div className="grid grid-cols-5 gap-3 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-4">
           {[
             {
               label: "IMPERIAL ORIGIN",
@@ -293,11 +292,14 @@ export default function HomePanel() {
         </div>
 
         {bars.map((bar) => (
-          <div key={bar.label} className="flex items-center gap-2 mb-1.5">
-            <span className="text-[9px] text-green-400 tracking-wide w-36 shrink-0">
+          <div
+            key={bar.label}
+            className="flex flex-wrap items-center gap-2 mb-1.5"
+          >
+            <span className="text-[9px] text-green-400 tracking-wide w-28 sm:w-36 shrink-0">
               {bar.label}
             </span>
-            <div className="flex-1 h-1.5 bg-zinc-950 border border-zinc-900 relative overflow-hidden">
+            <div className="flex-1 min-w-20 h-1.5 bg-zinc-950 border border-zinc-900 relative overflow-hidden">
               <div
                 className={`h-full ${bar.color} absolute left-0 top-0 transition-all duration-700 ease-out`}
                 style={{ width: `${bar.width}%` }}
@@ -330,7 +332,7 @@ export default function HomePanel() {
         >
           ⬡ ADEPTUS MECHANICUS ORDO LOGI
         </div>
-        <div className="flex items-center justify-center gap-10">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10">
           <AquilaSVG />
           <div className="text-center">
             <span

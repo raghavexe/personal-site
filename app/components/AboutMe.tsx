@@ -98,7 +98,7 @@ function LoadingLine({ name, index }: { name: string; index: number }) {
   const bar = "/".repeat(filled) + " ".repeat(20 - filled);
 
   return (
-    <div className="grid grid-cols-[90px_1fr_38px] items-center gap-2 text-green-400 whitespace-nowrap">
+    <div className="grid grid-cols-[70px_1fr_32px] sm:grid-cols-[90px_1fr_38px] items-center gap-2 text-green-400 whitespace-nowrap">
       <span className="truncate">&gt; {name}</span>
       <span className="text-green-600 tracking-tighter overflow-hidden transition-all duration-1500 ease-out">
         {bar}

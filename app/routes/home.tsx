@@ -1,16 +1,23 @@
-import BinaryBackground from "~/components/BinaryBackground";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 import type { Route } from "./+types/home";
+
+//background
+import BinaryBackground from "~/components/BinaryBackground";
+
+//components
 import NavBar from "~/components/Navbar";
-import Panel from "~/components/Parts/Panel";
 import HomePanel from "~/components/HomePanel";
 import AboutMe from "~/components/AboutMe";
 import HobbiesGames from "~/components/Hobbies";
-import { getOwnedGames } from "~/lib/steam.server";
 import ProjectExperienceTerminal from "~/components/Projects";
 import HobbiesBooks from "~/components/HobbiesBooks";
 import UnderInquisitorialSeal from "~/components/Parts/Unavailable";
 import ContactForm from "~/components/ContactForm";
 import HobbiesTvShows from "~/components/HobbiesTvShows";
+
+//steam api
+import { getOwnedGames } from "~/lib/steam.server";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Home" }, { name: "description", content: "" }];
@@ -21,6 +28,19 @@ export async function loader({}: Route.LoaderArgs) {
 }
 
 export default function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      // slight delay so the section has actually rendered/laid out
+      const timeout = setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [location]);
+
   return (
     <div id="layout-box" className="flex flex-col flex-1">
       <NavBar />
