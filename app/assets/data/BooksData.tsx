@@ -12,6 +12,7 @@ import Fulgrim from "../Fulgrim-Book.jpg";
 import Shattered from "../Shattered.jpg";
 import Cyberpunk from "../Cyberpunk.jpeg";
 import Deathwatch from "../Deathwatch.png";
+import VoidScarred from "../voidScarred.jpg";
 
 const BooksRead: Book[] = [
   {
@@ -70,6 +71,13 @@ const BooksRead: Book[] = [
     ISBN: "978-1789991246",
     link: "https://www.amazon.de/-/en/Deathwatch-Steve-Parker/dp/1849704465",
     imgLink: Deathwatch,
+  },
+  {
+    name: "Voidscarred",
+    author: "Mike Brooks",
+    ISBN: "9781836093640",
+    link: "https://www.amazon.de/Voidscarred-Warhammer-40-000-English-ebook/dp/B0FPD1M2M4",
+    imgLink: VoidScarred,
   },
 ];
 
