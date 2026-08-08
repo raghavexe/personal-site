@@ -12,7 +12,7 @@ import Panel from "./Parts/Panel"; // adjust this import path to wherever your P
 //    free "Access Key" (no account needed).
 // 2. Paste that key into WEB3FORMS_ACCESS_KEY below.
 // ---------------------------------------------------------------
-const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 const initialForm = {
   name: "",
@@ -21,190 +21,6 @@ const initialForm = {
   message: "",
   _honeypot: "",
 };
-
-function WarpConduit() {
-  const embers = Array.from({ length: 9 });
-  const glyphs = [
-    { top: "18%", left: "30%", size: 10, shape: "diamond", delay: "0s" },
-    { top: "62%", left: "70%", size: 12, shape: "triangle", delay: "2.2s" },
-    { top: "38%", left: "68%", size: 8, shape: "ring", delay: "4.4s" },
-    { top: "75%", left: "28%", size: 9, shape: "diamond", delay: "1.1s" },
-    { top: "25%", left: "65%", size: 7, shape: "ring", delay: "5.6s" },
-  ];
-
-  return (
-    <div className="warp-bar hidden md:flex w-32 lg:w-40 shrink-0 rounded-sm relative">
-      <div className="warp-blob warp-blob-a" />
-      <div className="warp-blob warp-blob-b" />
-      <div className="warp-blob warp-blob-c" />
-      <div className="warp-static" />
-      <div className="warp-flash" />
-      <div className="warp-chroma" />
-
-      {/* expanding ripples from the core */}
-      <div className="warp-ripple" style={{ animationDelay: "0s" }} />
-      <div className="warp-ripple" style={{ animationDelay: "1.3s" }} />
-      <div className="warp-ripple" style={{ animationDelay: "2.6s" }} />
-
-      {/* crackling tendrils */}
-      <svg className="warp-tendrils t1" viewBox="0 0 128 300" fill="none">
-        <path
-          d="M20 30 L45 70 L25 95 L60 140 L35 175 L70 210 L48 250 L64 280"
-          stroke="var(--warp-glow)"
-          strokeWidth="1"
-          strokeLinecap="round"
-        />
-      </svg>
-      <svg className="warp-tendrils t2" viewBox="0 0 128 300" fill="none">
-        <path
-          d="M108 40 L82 80 L104 110 L70 150 L96 190 L62 225 L88 260"
-          stroke="var(--brass-bright)"
-          strokeWidth="1"
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-      </svg>
-
-      {/* drifting psychic glyphs */}
-      {glyphs.map((g, i) => (
-        <svg
-          key={i}
-          className="warp-glyph"
-          width={g.size * 2}
-          height={g.size * 2}
-          viewBox="0 0 20 20"
-          style={{ top: g.top, left: g.left, animationDelay: g.delay }}
-        >
-          {g.shape === "diamond" && (
-            <path
-              d="M10 1 L19 10 L10 19 L1 10 Z"
-              stroke="var(--warp-glow)"
-              strokeWidth="1"
-              fill="none"
-            />
-          )}
-          {g.shape === "triangle" && (
-            <path
-              d="M10 2 L18 17 L2 17 Z"
-              stroke="var(--brass-bright)"
-              strokeWidth="1"
-              fill="none"
-            />
-          )}
-          {g.shape === "ring" && (
-            <circle
-              cx="10"
-              cy="10"
-              r="7"
-              stroke="var(--warp-glow)"
-              strokeWidth="1"
-              fill="none"
-            />
-          )}
-        </svg>
-      ))}
-
-      {/* rising embers */}
-      {embers.map((_, i) => (
-        <span
-          key={i}
-          className="ember"
-          style={{
-            left: `${10 + i * 9}%`,
-            animationDuration: `${4.5 + (i % 5)}s`,
-            animationDelay: `${i * 0.55}s`,
-            "--drift": `${i % 2 === 0 ? 12 : -12}px` as any,
-          }}
-        />
-      ))}
-
-      <div className="relative z-10 flex flex-col items-center justify-between h-full py-10 w-full">
-        <span
-          className="warp-label font-rune text-[10px] uppercase"
-          style={{ color: "var(--warp-glow)" }}
-        >
-          Warp Conduit
-        </span>
-
-        <svg width="96" height="96" viewBox="0 0 100 100" fill="none">
-          <g className="vortex-outer">
-            <circle
-              cx="50"
-              cy="50"
-              r="48"
-              stroke="var(--brass)"
-              strokeOpacity="0.15"
-              strokeWidth="0.75"
-              strokeDasharray="2 4"
-            />
-          </g>
-          <g className="vortex">
-            <circle
-              cx="50"
-              cy="50"
-              r="46"
-              stroke="var(--warp-glow)"
-              strokeOpacity="0.25"
-              strokeWidth="1"
-            />
-            <path
-              d="M50 6 A44 44 0 0 1 94 50"
-              stroke="var(--warp-glow)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M50 94 A44 44 0 0 1 6 50"
-              stroke="var(--brass-bright)"
-              strokeOpacity="0.5"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </g>
-          <g className="vortex-mid">
-            <path
-              d="M50 14 A36 36 0 0 1 86 50"
-              stroke="var(--brass-bright)"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.4"
-            />
-          </g>
-          <g className="vortex-inner">
-            <path
-              d="M50 20 A30 30 0 0 1 80 50"
-              stroke="var(--warp-glow)"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              opacity="0.7"
-            />
-            <path
-              d="M50 80 A30 30 0 0 1 20 50"
-              stroke="var(--warp-glow)"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              opacity="0.5"
-            />
-          </g>
-          <circle
-            className="warp-core"
-            cx="50"
-            cy="50"
-            r="5"
-            fill="var(--warp-glow)"
-          />
-        </svg>
-
-        <span
-          className="warp-label font-rune text-[9px] uppercase"
-          style={{ color: "var(--parchment-dim)" }}
-        >
-          Immaterium
-        </span>
-      </div>
-    </div>
-  );
-}
 
 function SignalRelay({ sending }: { sending: boolean }) {
   const segments = Array.from({ length: 14 });
@@ -219,9 +35,7 @@ function SignalRelay({ sending }: { sending: boolean }) {
         <span
           className="signal-label font-rune text-[10px] uppercase"
           style={{ color: "var(--brass-bright)" }}
-        >
-          Signal Relay
-        </span>
+        ></span>
 
         <svg
           className="signal-dish"
@@ -309,10 +123,7 @@ export default function ContactForm() {
 
     if (form._honeypot) return; // silently drop bots
 
-    if (
-      !WEB3FORMS_ACCESS_KEY ||
-      WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE"
-    ) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setErrorMsg(
         "Relay Not Bound — add your Web3Forms Access Key in the component code to activate this channel."
       );
@@ -531,7 +342,7 @@ export default function ContactForm() {
       `}</style>
 
       <div className="relay-root max-w-6xl mx-auto px-4 py-10 flex items-stretch justify-center gap-6">
-        <WarpConduit />
+        <SignalRelay sending={status === "sending"} />
         <div className="max-w-2xl w-full min-w-0">
           <Panel>
             <div

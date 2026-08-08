@@ -260,9 +260,9 @@ export default function HomePanel() {
               gold: true,
             },
             {
-              label: "THREAT LEVEL",
-              value: "HIGH",
-              sub: "HERETEK",
+              label: "SPECIALIZATION",
+              value: "CYBERSECURITY",
+              sub: "SYSTEMS // DEFENSE",
               gold: false,
             },
             {
