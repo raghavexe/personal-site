@@ -404,14 +404,14 @@ export default function ContactForm() {
                 <div className="flex items-center gap-2">
                   {/*change later*/}
                   <span
-                    className="w-1.5 h-1.5 rounded-full inline-block"
+                    className="w-2 h-2 rounded-full inline-block"
                     style={{
-                      color: "red",
-                      background: "red",
+                      color: "green",
+                      background: "green",
                       boxShadow: "0 0 8px 2px currentColor",
                     }}
                   />
-                  <span>Channel Closed</span>
+                  <span>Channel Open</span>
                 </div>
                 <span>
                   {status === "sending"
