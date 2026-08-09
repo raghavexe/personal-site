@@ -1,11 +1,11 @@
-type Project = {
+export type Project = {
   name: string;
   description: string;
   tech: string;
   github?: string;
+  live?: string; // deployed site URL, if it exists
   inProgress?: boolean;
 };
-
 const PersonalProjects: Project[] = [
   {
     name: "Home4U",
@@ -47,6 +47,7 @@ const PersonalProjects: Project[] = [
       "Built a searchable web application that allows users to identify German cities and districts from their vehicle registration prefixes, providing a fast and intuitive lookup experience.",
     tech: "PostgreSQL, JavaScript, HTML, CSS",
     github: "https://github.com/raghavexe/german-numberplates",
+    live: "https://german-numberplates.vercel.app",
   },
   {
     name: "TU-Darmstadt Course Catalogue",
@@ -64,4 +65,3 @@ const PersonalProjects: Project[] = [
 ];
 
 export default PersonalProjects;
-export type { Project };
