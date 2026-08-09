@@ -3,6 +3,7 @@ import MyPhoto from "../assets/my-photo.jpeg";
 import { useState, useEffect } from "react";
 import GrimdarkFrame from "./Parts/PhotoFrame";
 import AquilaSVG from "~/assets/Aquilla";
+import FloatingRunes from "./Parts/ChaosRunes";
 
 const FULL_TEXT = [
   { text: "problem solving", accent: true },
@@ -96,46 +97,19 @@ export default function HomePanel() {
     });
   };
 
-  const bars = [
-    {
-      label: "PROBLEM SOLVING",
-      value: 92,
-      color: "bg-green-800",
-      width: barWidths[0],
-    },
-    {
-      label: "ADAPTABILITY",
-      value: 88,
-      color: "bg-green-800",
-      width: barWidths[1],
-    },
-    {
-      label: "WARP RESISTANCE",
-      value: 71,
-      color: "bg-yellow-800",
-      width: barWidths[2],
-    },
-    {
-      label: "HERESY LEVEL",
-      value: 75,
-      color: "bg-red-900",
-      width: barWidths[3],
-    },
-  ];
-
   return (
     <Panel>
       {/* Corner runes */}
-      <div className="absolute top-2 left-3 text-[10px] text-zinc-700 font-mono pointer-events-none select-none">
+      <div className="absolute top-2 left-3 text-[10px] text-purple-500 font-mono pointer-events-none select-none">
         ᚠᚢᚦ
       </div>
-      <div className="absolute top-2 right-3 text-[10px] text-zinc-700 font-mono pointer-events-none select-none">
+      <div className="absolute top-2 right-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
         ᚨᚱᚲ
       </div>
-      <div className="absolute bottom-2 left-3 text-[10px] text-zinc-700 font-mono pointer-events-none select-none">
+      <div className="absolute bottom-2 left-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
         ᛊᛏᛒ
       </div>
-      <div className="absolute bottom-2 right-3 text-[10px] text-zinc-700 font-mono pointer-events-none select-none">
+      <div className="absolute bottom-2 right-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
         ᛖᛗᛚ
       </div>
 
@@ -290,10 +264,13 @@ export default function HomePanel() {
             BIOMETRIC SCAN: <span className="text-green-400">VERIFIED</span>
           </span>
           <span>
-            SOUL <span className="text-green-400">UNTAINTED</span>
-          </span>
-          <span>
-            WARP SIGNATURE: <span className="text-green-400">STABLE</span>
+            WARP SIGNATURE:{" "}
+            <span
+              className="text-red-500"
+              style={{ animation: "flicker 1.0s infinite" }}
+            >
+              ERROR
+            </span>
           </span>
         </div>
       </div>
@@ -308,7 +285,7 @@ export default function HomePanel() {
               "radial-gradient(circle at 30% 20%, rgba(217,70,239,0.25), transparent 60%), radial-gradient(circle at 80% 80%, rgba(168,85,247,0.2), transparent 55%)",
           }}
         />
-
+        <FloatingRunes />
         <div
           className="text-[9px] text-fuchsia-400 tracking-widest mb-3 pb-2 border-b border-fuchsia-950/70 relative"
           style={{ animation: "flicker 2.0s infinite" }}
