@@ -4,7 +4,7 @@ export default function GrimdarkFrame({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative" style={{ width: "330px", height: "400px" }}>
+    <div className="relative w-full max-w-[330px] aspect-[330/400] mx-auto">
       {/* Photo sits behind the SVG frame  */}
       <div
         className="absolute"
@@ -40,7 +40,6 @@ export default function GrimdarkFrame({
         />
 
         {/* Frame body — dark metal plates */}
-        {/* Top plate */}
         <rect
           x="0"
           y="0"
@@ -50,7 +49,6 @@ export default function GrimdarkFrame({
           stroke="#3a2e14"
           strokeWidth="1"
         />
-        {/* Bottom plate */}
         <rect
           x="0"
           y="276"
@@ -60,7 +58,6 @@ export default function GrimdarkFrame({
           stroke="#3a2e14"
           strokeWidth="1"
         />
-        {/* Left plate */}
         <rect
           x="0"
           y="44"
@@ -70,7 +67,6 @@ export default function GrimdarkFrame({
           stroke="#3a2e14"
           strokeWidth="1"
         />
-        {/* Right plate */}
         <rect
           x="280"
           y="44"
@@ -81,7 +77,7 @@ export default function GrimdarkFrame({
           strokeWidth="1"
         />
 
-        {/* Inner bevel — top */}
+        {/* Inner bevel */}
         <rect
           x="40"
           y="40"
@@ -91,7 +87,6 @@ export default function GrimdarkFrame({
           stroke="#4a3820"
           strokeWidth="0.5"
         />
-        {/* Inner bevel — bottom */}
         <rect
           x="40"
           y="276"
@@ -101,7 +96,6 @@ export default function GrimdarkFrame({
           stroke="#4a3820"
           strokeWidth="0.5"
         />
-        {/* Inner bevel — left */}
         <rect
           x="40"
           y="44"
@@ -111,7 +105,6 @@ export default function GrimdarkFrame({
           stroke="#4a3820"
           strokeWidth="0.5"
         />
-        {/* Inner bevel — right */}
         <rect
           x="276"
           y="44"
@@ -133,152 +126,7 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
         />
 
-        {/* ── TOP SKULL ── */}
-        {/* Skull dome */}
-        <ellipse
-          cx="160"
-          cy="14"
-          rx="16"
-          ry="11"
-          fill="#2a2216"
-          stroke="#6a5428"
-          strokeWidth="1"
-        />
-        {/* Eye sockets */}
-        <ellipse cx="154" cy="12" rx="4" ry="3.5" fill="#0a0808" />
-        <ellipse cx="166" cy="12" rx="4" ry="3.5" fill="#0a0808" />
-        {/* Nose cavity */}
-        <path d="M158,17 L160,15 L162,17 L161,19 L159,19 Z" fill="#0a0808" />
-        {/* Teeth */}
-        <rect
-          x="152"
-          y="20"
-          width="3"
-          height="4"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="156"
-          y="20"
-          width="3"
-          height="5"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="160"
-          y="20"
-          width="3"
-          height="5"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="164"
-          y="20"
-          width="3"
-          height="4"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        {/* Jaw */}
-        <path
-          d="M150,20 Q160,26 170,20"
-          fill="none"
-          stroke="#5a4828"
-          strokeWidth="1"
-        />
-        {/* Skull accent lines */}
-        <line
-          x1="148"
-          y1="10"
-          x2="144"
-          y2="8"
-          stroke="#4a3c1a"
-          strokeWidth="0.5"
-        />
-        <line
-          x1="172"
-          y1="10"
-          x2="176"
-          y2="8"
-          stroke="#4a3c1a"
-          strokeWidth="0.5"
-        />
-
-        {/* ── BOTTOM SKULL ── */}
-        <ellipse
-          cx="160"
-          cy="306"
-          rx="16"
-          ry="11"
-          fill="#2a2216"
-          stroke="#6a5428"
-          strokeWidth="1"
-        />
-        <ellipse cx="154" cy="304" rx="4" ry="3.5" fill="#0a0808" />
-        <ellipse cx="166" cy="304" rx="4" ry="3.5" fill="#0a0808" />
-        <path
-          d="M158,309 L160,307 L162,309 L161,311 L159,311 Z"
-          fill="#0a0808"
-        />
-        <rect
-          x="152"
-          y="312"
-          width="3"
-          height="4"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="156"
-          y="312"
-          width="3"
-          height="5"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="160"
-          y="312"
-          width="3"
-          height="5"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <rect
-          x="164"
-          y="312"
-          width="3"
-          height="4"
-          rx="0.5"
-          fill="#1a1410"
-          stroke="#5a4820"
-          strokeWidth="0.5"
-        />
-        <path
-          d="M150,312 Q160,318 170,312"
-          fill="none"
-          stroke="#5a4828"
-          strokeWidth="1"
-        />
-
-        {/* ── CORNER BRACKETS — Top Left ── */}
+        {/* CORNER BRACKETS — Top Left */}
         <rect
           x="0"
           y="0"
@@ -319,7 +167,6 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
         />
         <circle cx="26" cy="26" r="1.5" fill="#c09030" />
-        {/* rivet */}
         <circle
           cx="10"
           cy="10"
@@ -330,7 +177,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="10" cy="10" r="1" fill="#8a6828" />
 
-        {/* ── CORNER BRACKETS — Top Right ── */}
+        {/* CORNER BRACKETS — Top Right */}
         <rect
           x="268"
           y="0"
@@ -381,7 +228,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="310" cy="10" r="1" fill="#8a6828" />
 
-        {/* ── CORNER BRACKETS — Bottom Left ── */}
+        {/* CORNER BRACKETS — Bottom Left */}
         <rect
           x="0"
           y="268"
@@ -432,7 +279,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="10" cy="310" r="1" fill="#8a6828" />
 
-        {/* ── CORNER BRACKETS — Bottom Right ── */}
+        {/* CORNER BRACKETS — Bottom Right */}
         <rect
           x="268"
           y="268"
@@ -483,8 +330,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="310" cy="310" r="1" fill="#8a6828" />
 
-        {/* ── LEFT SIDE — mechanical details ── */}
-        {/* Pipe/conduit */}
+        {/* LEFT SIDE — mechanical details */}
         <rect
           x="4"
           y="70"
@@ -505,7 +351,6 @@ export default function GrimdarkFrame({
           stroke="#2a2210"
           strokeWidth="0.5"
         />
-        {/* Pipe bands */}
         <rect
           x="4"
           y="85"
@@ -533,7 +378,6 @@ export default function GrimdarkFrame({
           stroke="#4a3c18"
           strokeWidth="0.5"
         />
-        {/* Small data-port */}
         <rect
           x="5"
           y="175"
@@ -545,7 +389,6 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
         />
         <rect x="7" y="177" width="6" height="10" rx="0.5" fill="#0d2a0d" />
-        {/* Blinking light */}
         <circle
           cx="10"
           cy="200"
@@ -561,7 +404,6 @@ export default function GrimdarkFrame({
             repeatCount="indefinite"
           />
         </circle>
-        {/* Side rivets */}
         <circle
           cx="20"
           cy="60"
@@ -579,7 +421,7 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
         />
 
-        {/* ── RIGHT SIDE — mechanical details ── */}
+        {/* RIGHT SIDE — mechanical details */}
         <rect
           x="304"
           y="70"
@@ -627,7 +469,6 @@ export default function GrimdarkFrame({
           stroke="#4a3c18"
           strokeWidth="0.5"
         />
-        {/* Cogitator screen */}
         <rect
           x="305"
           y="175"
@@ -663,7 +504,6 @@ export default function GrimdarkFrame({
           stroke="#2a2a5a"
           strokeWidth="0.5"
         />
-        {/* Amber light */}
         <circle
           cx="310"
           cy="200"
@@ -696,7 +536,7 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
         />
 
-        {/* ── TOP — gothic triangle ── */}
+        {/* TOP — gothic triangle */}
         <polygon
           points="160,2 148,16 172,16"
           fill="#141008"
@@ -711,7 +551,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="160" cy="11" r="2" fill="#c09030" opacity="0.8" />
 
-        {/* ── BOTTOM — small aquila wings hint ── */}
+        {/* BOTTOM — aquila wings hint */}
         <path
           d="M130,295 Q145,285 160,290 Q175,285 190,295"
           fill="none"
@@ -724,7 +564,6 @@ export default function GrimdarkFrame({
           stroke="#2a2210"
           strokeWidth="0.5"
         />
-        {/* Purity seal */}
         <circle
           cx="160"
           cy="298"
@@ -735,7 +574,7 @@ export default function GrimdarkFrame({
         />
         <circle cx="160" cy="298" r="2.5" fill="#c09030" opacity="0.6" />
 
-        {/* ── MID SIDE STUDS ── */}
+        {/* MID SIDE STUDS */}
         {[80, 100, 120, 200, 220, 240].map((y) => (
           <g key={`ls-${y}`}>
             <circle
@@ -761,7 +600,7 @@ export default function GrimdarkFrame({
           </g>
         ))}
 
-        {/* Worn metal texture lines — top plate */}
+        {/* Worn metal texture lines */}
         <line
           x1="55"
           y1="20"
@@ -798,7 +637,6 @@ export default function GrimdarkFrame({
           strokeWidth="0.5"
           opacity="0.3"
         />
-        {/* Worn metal texture lines — bottom plate */}
         <line
           x1="55"
           y1="290"

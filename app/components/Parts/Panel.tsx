@@ -16,7 +16,7 @@ export default function Panel({ title, children }: PanelProps) {
           border-2 border-zinc-900
           shadow-[0_10px_25px_rgba(0,0,0,0.65),0_3px_6px_rgba(0,0,0,0.4)]
           rounded-sm
-          overflow-auto
+          overflow-y-auto overflow-x-hidden
         "
       >
         <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-zinc-700/40 to-transparent" />

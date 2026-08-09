@@ -140,7 +140,7 @@ export default function HomePanel() {
       </div>
 
       {/* Main two-column layout */}
-      <div className="grid gap-8 items-center grid-cols-1 md:grid-cols-[1fr_auto]">
+      <div className="grid gap-8 items-center grid-cols-1 md:grid-cols-[1fr_18rem] min-w-0">
         {/* Text column */}
         <div className="flex flex-col gap-2">
           {/* Inquisition header tag */}
@@ -204,19 +204,13 @@ export default function HomePanel() {
         </div>
 
         {/* Photo with frame */}
-        <div className="w-full max-w-70 mx-auto md:mx-0 md:w-auto">
+        {/* Photo with frame */}
+        <div className="w-full max-w-70 md:max-w-[18rem] mx-auto md:mx-0">
           <GrimdarkFrame>
             <img
               src={MyPhoto}
               alt="Raghav"
-              className="absolute object-cover"
-              style={{
-                top: "12%",
-                left: "11%",
-                width: "78%",
-                height: "74%",
-                zIndex: 0,
-              }}
+              className="w-full h-full object-cover"
             />
           </GrimdarkFrame>
         </div>
@@ -291,26 +285,6 @@ export default function HomePanel() {
           ))}
         </div>
 
-        {bars.map((bar) => (
-          <div
-            key={bar.label}
-            className="flex flex-wrap items-center gap-2 mb-1.5"
-          >
-            <span className="text-[9px] text-green-400 tracking-wide w-28 sm:w-36 shrink-0">
-              {bar.label}
-            </span>
-            <div className="flex-1 min-w-20 h-1.5 bg-zinc-950 border border-zinc-900 relative overflow-hidden">
-              <div
-                className={`h-full ${bar.color} absolute left-0 top-0 transition-all duration-700 ease-out`}
-                style={{ width: `${bar.width}%` }}
-              />
-            </div>
-            <span className="text-[9px] text-green-400 w-12 text-right shrink-0">
-              {bar.value}/100
-            </span>
-          </div>
-        ))}
-
         <div className="mt-3 pt-2 border-t border-zinc-900 flex justify-between text-[9px] text-zinc-200">
           <span>
             BIOMETRIC SCAN: <span className="text-green-400">VERIFIED</span>
@@ -325,38 +299,62 @@ export default function HomePanel() {
       </div>
 
       {/* CHAPTER HERALDRY */}
-      <div className="mt-3 border border-zinc-900 bg-[#0a080a] p-4 font-mono">
+      <div className="mt-3 border border-fuchsia-950/60 bg-[#0d060c] p-4 font-mono relative overflow-hidden">
+        {/* faint iridescent wash */}
         <div
-          className="text-[9px] text-red-600 tracking-widest mb-3 pb-2 border-b border-zinc-900"
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 20%, rgba(217,70,239,0.25), transparent 60%), radial-gradient(circle at 80% 80%, rgba(168,85,247,0.2), transparent 55%)",
+          }}
+        />
+
+        <div
+          className="text-[9px] text-fuchsia-400 tracking-widest mb-3 pb-2 border-b border-fuchsia-950/70 relative"
           style={{ animation: "flicker 2.0s infinite" }}
         >
-          ⬡ ADEPTUS MECHANICUS ORDO LOGI
+          ⬡ ADEPTUS MECHANICUS ORDO LOGI · SIGNAL CORRUPTED
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10">
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 relative">
           <AquilaSVG />
+
           <div className="text-center">
             <span
-              className="block text-3xl text-red-600 mb-1"
-              style={{ fontFamily: "'UnifrakturMaguntia', serif" }}
+              className="block text-3xl mb-1 bg-clip-text text-transparent"
+              style={{
+                fontFamily: "'UnifrakturMaguntia', serif",
+                backgroundImage:
+                  "linear-gradient(90deg, #f0abfc, #e879f9, #c084fc, #f0abfc)",
+                filter: "drop-shadow(0 0 6px rgba(217,70,239,0.5))",
+              }}
             >
               Raghav
             </span>
-            <span className="block text-[9px] text-red-600 tracking-widest">
-              INITIATE OF THE OMNISSIAH · ADEPTUS MECHANICUS
+            <span className="block text-[9px] text-fuchsia-300 tracking-widest">
+              · INITIATE OF THE OMNISSIAH ·
             </span>
+
+            {/* filigree divider with six-pointed star */}
             <div className="flex items-center gap-2 my-2">
-              <div className="flex-1 h-px bg-white" />
-              <span className="text-red-600 text-[8px]">☩</span>
-              <div className="flex-1 h-px bg-white" />
+              <div className="flex-1 h-px bg-linear-to-r from-transparent via-fuchsia-500/60 to-fuchsia-500/60" />
+              <span
+                className="text-fuchsia-400 text-[10px]"
+                style={{ filter: "drop-shadow(0 0 4px rgba(232,121,249,0.8))" }}
+              >
+                ✻
+              </span>
+              <div className="flex-1 h-px bg-linear-to-l from-transparent via-fuchsia-500/60 to-fuchsia-500/60" />
             </div>
-            <span className="block text-[10px] text-red-600 tracking-wider italic">
-              "Per Scientiam ad Victoriam"
+
+            <span className="block text-[10px] text-fuchsia-300 tracking-wider italic">
+              "Per Scientiam ad Perfectionem"
             </span>
-            <span className="block text-[8px] text-red-600 tracking-widest mt-1">
-              FOR THE EMPEROR · FOR THE OMNISSIAH
+            <span className="block text-[8px] text-purple-400 tracking-widest mt-1">
+              FOR THE OMNISSIAH · FOR THE DARK PRINCE
             </span>
           </div>
-          <AquilaSVG flipped />
+          <AquilaSVG />
         </div>
       </div>
     </Panel>
