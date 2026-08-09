@@ -169,6 +169,27 @@ body {
   100% { opacity: 0.18; }
 }
 
+@keyframes runeFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-60px) translateX(6px) rotate(8deg);
+  }
+  85% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-130px) translateX(-6px) rotate(-6deg);
+    opacity: 0;
+  }
+}
+
+
 .mech-btn.active .btn-indicator::after {
   background: #7a3a0a;
   animation: flicker 2.8s infinite;
