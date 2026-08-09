@@ -4,86 +4,15 @@ import ScreenFrame from "./Parts/ScreenFrame";
 import { ScreenHeader, ScreenFooter } from "./Parts/ScreenHeaderFooter";
 import Divider from "./Parts/Divider";
 import TravelGlobe from "./Parts/TravelMap";
+import languages from "~/assets/data/Languages";
+import languagesLearning from "~/assets/data/LanguagesLearning";
+import technologies from "~/assets/data/Technologies";
+import education from "~/assets/data/Education";
+import thesis from "~/assets/data/Thesis";
+import workExperience from "~/assets/data/WorkExperience";
+import industrialProjects from "~/assets/data/IndustrialProjects";
 
 /* Includes things i love to do, and what i do as a software Engineer */
-
-const languages = [
-  { name: "Java" },
-  { name: "JavaScript" },
-  { name: "NodeJS" },
-  { name: "ReactJS" },
-];
-const languagesLearning = [
-  { name: "C" },
-  { name: "C#" },
-  { name: ".NET" },
-  { name: "Python" },
-];
-const technologies = [
-  { name: "Kafka" },
-  { name: "AWS" },
-  { name: "MongoDB" },
-  { name: "Docker" },
-];
-
-const education = [
-  {
-    school: "International School of Hamburg",
-    program: "IB Diploma",
-  },
-  {
-    school: "University of Gothenburg",
-    program: "Bachelors in Software Engineering and Management",
-  },
-  {
-    school: "Linnaeus Universitet",
-    program: "Discrete Mathematics, Calculus I and II, Linear Algebra",
-  },
-  {
-    school: "Linköping Universitet",
-    program: "Swedish B1",
-  },
-];
-
-const thesis = {
-  title:
-    "LLMs potential in requirements analysis in industrial software projects",
-  description:
-    "An empirical study on integrating AI into requirements engineering workflows, evaluating impacts on efficiency, resource consumption, and accuracy.",
-};
-
-const workExperience = [
-  {
-    role: "Summer intern",
-    org: "Ericsson",
-    period: "June 2025 - September 2025",
-  },
-  {
-    role: "Contributor",
-    org: "OpenJS",
-    period: "October 2025 - January 2026",
-  },
-  {
-    role: "Systems architect, Scrum Master, DevOps Engineering intern",
-    org: "Lensara Technologies",
-    period: "May 2025 - current",
-  },
-];
-
-const industrialProjects = [
-  {
-    name: "ERET (Ericsson Requirements Evaluation Tool)",
-    description:
-      "Developed an extension tool for analyzing requirements, integrating with Ericsson's proprietary AI to evaluate requirement quality. The tool processes requirement files, assesses language and context based on internal guidelines, generates statistics and evaluations, and provides recommendations or rewrites. It also includes a chatbot to answer queries based on file data.",
-    tech: "JavaScript, VSC extensions, HTML, CSS, artificial intelligence, vector search, RegEx",
-  },
-  {
-    name: "TrustLens AI (AI governance and regulation)",
-    description:
-      "Designed and developed the overall system architecture and tech stack for a distributed AI-driven compliance platform. Built a microservices-based backend using Kafka for event-driven communication, Redis for state management, and an API gateway (APISIX/Nginx) for routing and security. Contributed to core backend services, messaging pipelines, and Docker-based infrastructure across multiple components.",
-    tech: "Python, Docker, Kafka, Redis, microservices architecture, system design, Nginx, APISIX, Bash, YAML",
-  },
-];
 
 function LoadingLine({ name, index }: { name: string; index: number }) {
   const [pct, setPct] = useState(0);
