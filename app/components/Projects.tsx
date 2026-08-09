@@ -35,7 +35,11 @@ function AuthorizationModal({
   project: Project;
   onClose: () => void;
 }) {
-  const denied = !project.github;
+  const hasGithub = !!project.github;
+  const hasLive = !!project.live;
+  const denied = !hasGithub && !hasLive;
+  const hasChoice = hasGithub && hasLive;
+
   const lines = denied ? DENIED_LINES : RITUAL_LINES;
 
   const [visibleLines, setVisibleLines] = useState<string[]>([]);
@@ -58,15 +62,17 @@ function AuthorizationModal({
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-redirect only when there's a single unambiguous destination
   useEffect(() => {
-    if (done && !denied && project.github) {
+    if (done && !denied && !hasChoice) {
+      const target = project.github || project.live;
       const timer = setTimeout(() => {
-        window.open(project.github, "_blank");
+        window.open(target, "_blank");
         onClose();
       }, 800);
       return () => clearTimeout(timer);
     }
-  }, [done, denied, project.github, onClose]);
+  }, [done, denied, hasChoice, project.github, project.live, onClose]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -168,15 +174,46 @@ function AuthorizationModal({
                   </div>
                 </div>
 
-                {done && denied ? (
+                {done && denied && (
                   <div className="bg-red-900 text-red-200 text-center font-bold tracking-widest py-2 uppercase text-sm animate-pulse border border-red-700">
                     ++ Access Denied — No Repository Clearance Found ++
                   </div>
-                ) : done && !denied ? (
-                  <div className="bg-green-400 text-black text-center font-bold tracking-widest py-2 uppercase text-sm animate-pulse">
-                    ++ Uplink established — opening repository ++
+                )}
+
+                {done && !denied && hasChoice && (
+                  <div className="space-y-2">
+                    <div className="bg-green-400 text-black text-center font-bold tracking-widest py-2 uppercase text-sm">
+                      ++ Uplink established — select destination ++
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => {
+                          window.open(project.github, "_blank");
+                          onClose();
+                        }}
+                        className="border border-green-700 text-green-300 hover:bg-green-950/30 hover:border-green-400 text-[10px] uppercase tracking-widest py-2 transition-colors"
+                      >
+                        // access repository
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.open(project.live, "_blank");
+                          onClose();
+                        }}
+                        className="border border-yellow-700 text-yellow-400 hover:bg-yellow-950/30 hover:border-yellow-400 text-[10px] uppercase tracking-widest py-2 transition-colors"
+                      >
+                        // visit deployment
+                      </button>
+                    </div>
                   </div>
-                ) : null}
+                )}
+
+                {done && !denied && !hasChoice && (
+                  <div className="bg-green-400 text-black text-center font-bold tracking-widest py-2 uppercase text-sm animate-pulse">
+                    ++ Uplink established — opening{" "}
+                    {hasGithub ? "repository" : "deployment"} ++
+                  </div>
+                )}
 
                 <button
                   onClick={onClose}
@@ -211,7 +248,7 @@ function ProjectCard({
   project: Project;
   onClick: () => void;
 }) {
-  const denied = !project.github;
+  const denied = !project.github && !project.live;
 
   return (
     <div
@@ -239,15 +276,22 @@ function ProjectCard({
             </span>
           )}
         </div>
-        <span
-          className={`shrink-0 text-[10px] uppercase tracking-widest transition-colors ${
-            denied
-              ? "text-red-900 group-hover:text-red-700"
-              : "text-green-700 group-hover:text-green-400"
-          }`}
-        >
-          {denied ? "[denied]" : "[access]"}
-        </span>
+        <div className="shrink-0 flex items-center gap-2">
+          {project.live && (
+            <span className="text-[10px] uppercase tracking-widest text-cyan-700 group-hover:text-cyan-400 transition-colors">
+              [live]
+            </span>
+          )}
+          <span
+            className={`text-[10px] uppercase tracking-widest transition-colors ${
+              denied
+                ? "text-red-900 group-hover:text-red-700"
+                : "text-green-700 group-hover:text-green-400"
+            }`}
+          >
+            {denied ? "[denied]" : "[access]"}
+          </span>
+        </div>
       </div>
 
       <p

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import MechButton from "./Parts/MechButton";
 
@@ -14,22 +14,71 @@ const NAV_LINKS = [
 export default function NavBar() {
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const onBlogsPage = location.pathname.startsWith("/blogs");
 
+  // Scroll-spy: keep the active nav light in sync with whichever section is
+  // actually in view, whether the user scrolled manually or via a nav click.
+  // (Home.jsx handles scrolling to the hash target on navigation — this
+  // effect only tracks which section is currently visible.)
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const sectionIds = [...NAV_LINKS.map((l) => l.id), "contact"];
+
+    // Small delay so this runs after the page has had a chance to mount and
+    // (if applicable) finish the hash-scroll from Home.jsx.
+    const setupTimeout = setTimeout(() => {
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null);
+
+      if (sections.length === 0) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (visible.length > 0) {
+            setActive(visible[0].target.id);
+          }
+        },
+        {
+          root: null,
+          // Treat the middle band of the viewport as "active" so the light
+          // switches roughly when a section crosses the center of the screen.
+          rootMargin: "-35% 0px -55% 0px",
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+        }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+      observerRef.current = observer;
+    }, 150);
+
+    return () => {
+      clearTimeout(setupTimeout);
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+    };
+  }, [location.pathname]);
+
   const goToSection = (id: string) => {
     setActive(id);
     setMenuOpen(false);
+  };
+
+  const handleMobileNav = (id: string) => {
+    goToSection(id);
     if (location.pathname === "/") {
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     } else {
       navigate(`/#${id}`);
     }
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.color = "#7a5a28";
   };
 
   return (
@@ -176,38 +225,12 @@ export default function NavBar() {
             />
           ))}
 
-          <Link
+          <MechButton
+            sectionId="archive"
+            text="ARCHIVE"
+            active={onBlogsPage}
             to="/blogs"
-            className="relative flex items-center justify-center px-5 group"
-            style={{
-              fontFamily: "'Share Tech Mono', monospace",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              color: onBlogsPage ? "#c8a050" : "#7a5a28",
-              textDecoration: "none",
-              borderLeft: "1px solid #2a1e0c",
-              borderRight: "1px solid #2a1e0c",
-              background: onBlogsPage ? "rgba(139,16,16,0.12)" : "transparent",
-              transition: "color 120ms ease, background 120ms ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#c8a050")}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = onBlogsPage
-                ? "#c8a050"
-                : "#7a5a28")
-            }
-          >
-            <span
-              className="rounded-full shrink-0 mr-2"
-              style={{
-                width: 5,
-                height: 5,
-                background: onBlogsPage ? "#16962a" : "#8b1010",
-                animation: onBlogsPage ? "flicker 2.4s infinite" : "none",
-              }}
-            />
-            ARCHIVE
-          </Link>
+          />
         </div>
 
         <div
@@ -318,7 +341,7 @@ export default function NavBar() {
           {NAV_LINKS.map(({ id, label }) => (
             <button
               key={id}
-              onClick={() => goToSection(id)}
+              onClick={() => handleMobileNav(id)}
               className="text-left px-6 py-3 uppercase text-sm"
               style={{
                 fontFamily: "'Share Tech Mono', monospace",
@@ -330,20 +353,23 @@ export default function NavBar() {
               {label}
             </button>
           ))}
-          <Link
-            to="/blogs"
-            onClick={() => setMenuOpen(false)}
-            className="px-6 py-3 uppercase text-sm"
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              navigate("/blogs");
+            }}
+            className="text-left px-6 py-3 uppercase text-sm"
             style={{
+              fontFamily: "'Share Tech Mono', monospace",
               color: onBlogsPage ? "#c8a050" : "#9a6a30",
               borderBottom: "1px solid #2a1e0c",
-              textDecoration: "none",
+              background: "transparent",
             }}
           >
             ARCHIVE
-          </Link>
+          </button>
           <button
-            onClick={() => goToSection("contact")}
+            onClick={() => handleMobileNav("contact")}
             className="text-left px-6 py-3 uppercase text-sm"
             style={{
               fontFamily: "'Share Tech Mono', monospace",

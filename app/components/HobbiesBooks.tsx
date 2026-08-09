@@ -8,66 +8,85 @@ import BooksRead from "~/assets/data/BooksData";
 
 function BookModal({ book, onClose }: { book: Book; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div className="relative w-full max-w-lg mx-4">
-        <div className="rounded-sm border-2 border-amber-800/70 bg-zinc-900 shadow-[0_0_40px_rgba(120,60,0,0.3)]">
-          <div className="bg-linear-to-r from-amber-950 via-amber-800 to-amber-950 text-amber-100 text-center font-mono font-bold tracking-widest py-2 uppercase text-sm border-b border-amber-700/50">
-            +++ Scriptorium Record +++
-          </div>
+        <div className="rounded-[28px] border-[3px] border-zinc-500 bg-zinc-700 p-1.5 shadow-[0_0_40px_rgba(34,197,94,0.15)]">
+          <div className="rounded-[22px] border-2 border-zinc-600 bg-zinc-800 p-3">
+            <div
+              className="relative rounded-2xl bg-black overflow-hidden"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(0deg, rgba(34,197,94,0.07) 0px, rgba(34,197,94,0.07) 1px, transparent 1px, transparent 3px)",
+              }}
+            >
+              <div className="pointer-events-none absolute inset-0 animate-pulse bg-green-400/5" />
 
-          <div className="flex gap-5 p-6">
-            <div className="shrink-0 relative">
-              <div className="absolute inset-0 border-2 border-amber-700/40 pointer-events-none z-10" />
-              <img
-                src={book.imgLink}
-                alt={book.name}
-                className="w-32 object-contain shadow-[4px_4px_12px_rgba(0,0,0,0.8)]"
-              />
-              <div className="absolute left-0 top-0 w-1 h-full bg-amber-600/30" />
-            </div>
-
-            <div className="flex flex-col justify-between font-mono min-w-0">
-              <div className="space-y-3">
-                <p className="text-amber-200 text-sm uppercase tracking-wide leading-tight">
-                  {book.name}
-                </p>
-                <div className="space-y-1">
-                  <p className="text-amber-600 text-[11px] uppercase tracking-widest">
-                    // Scribed by
-                  </p>
-                  <p className="text-amber-300 text-[13px]">{book.author}</p>
+              <div className="relative font-mono px-6 py-6 space-y-4">
+                <div className="text-center font-bold tracking-widest py-2 uppercase text-sm bg-green-400 text-black">
+                  +++ Scriptorium Record +++
                 </div>
-                <div className="space-y-1">
-                  <p className="text-amber-600 text-[11px] uppercase tracking-widest">
-                    // Codex sigil
-                  </p>
-                  <p className="text-amber-800 text-[11px]">{book.ISBN}</p>
+
+                <div className="border border-green-700 px-3 py-2 text-[14px] uppercase tracking-wide text-green-300">
+                  &gt; {book.name}
+                </div>
+
+                <div className="flex gap-5">
+                  <div className="shrink-0 relative">
+                    <div className="absolute inset-0 border border-green-700/50 pointer-events-none z-10" />
+                    <img
+                      src={book.imgLink}
+                      alt={book.name}
+                      className="w-40 object-contain"
+                    />
+                  </div>
+
+                  <div className="flex flex-col justify-center gap-3 min-w-0">
+                    <div>
+                      <p className="text-green-600 text-[13px] uppercase tracking-widest">
+                        // Scribed by
+                      </p>
+                      <p className="text-green-300 text-[13px] uppercase truncate">
+                        {book.author}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-green-600 text-[13px] uppercase tracking-widest">
+                        // Codex sigil
+                      </p>
+                      <p className="text-green-300 text-[13px]">{book.ISBN}</p>
+                    </div>
+                    <div className="h-px bg-green-900/60 w-full" />
+                    <div className="space-y-1">
+                      <p className="text-green-700 text-[10px] uppercase tracking-widest">
+                        // archive status: complete
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-green-400 text-black text-center font-bold tracking-widest py-2 uppercase text-sm">
+                  ++ Record verified — tome available ++
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => {
+                      window.open(book.link, "_blank");
+                      onClose();
+                    }}
+                    className="border border-green-700 text-green-300 hover:bg-green-950/30 hover:border-green-400 text-[10px] uppercase tracking-widest py-2 transition-colors"
+                  >
+                    // open tome
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="border border-green-900 text-green-700 hover:text-green-500 hover:border-green-700 text-[10px] uppercase tracking-widest py-2 transition-colors"
+                  >
+                    // return to shelf
+                  </button>
                 </div>
               </div>
-
-              <div className="mt-4 space-y-2">
-                <button
-                  onClick={() => {
-                    window.open(book.link, "_blank");
-                    onClose();
-                  }}
-                  className="w-full bg-amber-800/40 hover:bg-amber-700/50 border border-amber-700/60 text-amber-200 hover:text-amber-100 text-[11px] uppercase tracking-widest py-2 transition-all font-mono"
-                >
-                  ++ Open Tome ++
-                </button>
-                <button
-                  onClick={onClose}
-                  className="w-full border border-zinc-700 text-zinc-600 hover:text-zinc-400 hover:border-zinc-500 text-[10px] uppercase tracking-widest py-1.5 transition-colors font-mono"
-                >
-                  // return to shelf
-                </button>
-              </div>
             </div>
-          </div>
-
-          <div className="border-t border-amber-900/40 px-6 py-2 flex justify-between text-[9px] font-mono uppercase text-amber-900">
-            <span>Imperial Library — Restricted Access</span>
-            <span>{book.ISBN}</span>
           </div>
         </div>
       </div>

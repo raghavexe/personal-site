@@ -5,6 +5,7 @@ interface MechButtonProps {
   text: string;
   active: boolean;
   onClick?: (sectionId: string) => void;
+  to?: string; // if provided, navigates directly instead of scrolling to a section
 }
 
 export default function MechButton({
@@ -12,12 +13,18 @@ export default function MechButton({
   text,
   active,
   onClick,
+  to,
 }: MechButtonProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleClick = () => {
     onClick?.(sectionId);
+
+    if (to) {
+      navigate(to);
+      return;
+    }
 
     if (location.pathname === "/") {
       document
