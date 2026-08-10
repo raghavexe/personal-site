@@ -13,14 +13,21 @@ const LOCATIONS: LocationEntry[] = [
     lat: 57.7,
     lng: 11.97,
     continent: "Europe",
-    note: "BSc Software Engineering",
+    note: "BSc. Software Engineering",
   },
   {
     name: "Linköping",
     lat: 58.41,
     lng: 15.62,
     continent: "Europe",
-    note: "MSc Cybersecurity + Swedish Language Studies",
+    note: "Swedish Language Studies",
+  },
+  {
+    name: "Darmstadt",
+    lat: 49.52,
+    lng: 8.39,
+    continent: "Europe",
+    note: "Msc. IT Security",
   },
   {
     name: "Växjö",
