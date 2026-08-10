@@ -2,7 +2,7 @@ import Panel from "./Parts/Panel";
 import MyPhoto from "../assets/my-photo.jpeg";
 import { useState, useEffect } from "react";
 import GrimdarkFrame from "./Parts/PhotoFrame";
-import AquilaSVG from "~/assets/Aquilla";
+import FlawlessHost from "~/assets/FlawlessHost";
 import FloatingRunes from "./Parts/ChaosRunes";
 
 const FULL_TEXT = [
@@ -99,20 +99,6 @@ export default function HomePanel() {
 
   return (
     <Panel>
-      {/* Corner runes */}
-      <div className="absolute top-2 left-3 text-[10px] text-purple-500 font-mono pointer-events-none select-none">
-        ᚠᚢᚦ
-      </div>
-      <div className="absolute top-2 right-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
-        ᚨᚱᚲ
-      </div>
-      <div className="absolute bottom-2 left-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
-        ᛊᛏᛒ
-      </div>
-      <div className="absolute bottom-2 right-3 text-[10px]  text-purple-500 font-mono pointer-events-none select-none">
-        ᛖᛗᛚ
-      </div>
-
       {/* Main two-column layout */}
       <div className="grid gap-8 items-center grid-cols-1 md:grid-cols-[1fr_18rem] min-w-0">
         {/* Text column */}
@@ -294,7 +280,7 @@ export default function HomePanel() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 relative">
-          <AquilaSVG />
+          <FlawlessHost />
 
           <div className="text-center">
             <span
@@ -331,7 +317,7 @@ export default function HomePanel() {
               FOR THE OMNISSIAH · FOR THE DARK PRINCE
             </span>
           </div>
-          <AquilaSVG />
+          <FlawlessHost />
         </div>
       </div>
     </Panel>
