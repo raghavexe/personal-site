@@ -302,6 +302,20 @@ const LOCATIONS: LocationEntry[] = [
     continent: "Europe",
     note: "Visited",
   },
+  {
+    name: "Derby",
+    lat: 52.9225,
+    lng: -1.4746,
+    continent: "Europe",
+    note: "Visited",
+  },
+  {
+    name: "Nottingham",
+    lat: 52.9536,
+    lng: -1.1505,
+    continent: "Europe",
+    note: "Visited",
+  },
 ];
 
 export default LOCATIONS;

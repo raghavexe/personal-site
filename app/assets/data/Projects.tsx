@@ -62,6 +62,13 @@ const PersonalProjects: Project[] = [
     tech: "Javascript, HTML, CSS",
     github: "https://github.com/raghavexe/Idrottshuset-Bokning-System",
   },
+  {
+    name: "File Organizer Bash script",
+    description:
+      "A simple bash script to organize your files based on extension, i.e photos:(jpg,png,gif)",
+    tech: "Shell",
+    github: "https://github.com/raghavexe/file-organizer-bash-script",
+  },
 ];
 
 export default PersonalProjects;

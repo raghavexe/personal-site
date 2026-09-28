@@ -2,13 +2,6 @@ import type { LocationEntry } from "./Maptypes";
 
 const LOCATION_WISHLIST: LocationEntry[] = [
   {
-    name: "Derby",
-    lat: 52.9225,
-    lng: -1.4746,
-    note: "Pending",
-    continent: "Europe",
-  },
-  {
     name: "Tokyo",
     lat: 35.6762,
     lng: 139.6503,
